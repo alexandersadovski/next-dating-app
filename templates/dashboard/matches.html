@@ -1,0 +1,78 @@
+{% extends 'dashboard/dashboard-base.html' %}
+{% load static %}
+{% load match_filter %}
+
+{% block content-dashboard %}
+    <div class="box-70">
+        <div class="header">
+            <p>Your Matches</p>
+        </div>
+
+        <div class="matches-list">
+            {% for match in matches %}
+                <div class="match-card">
+                    <div class="profile-picture">
+                        {% if match.user1 == request.user %}
+                            {% if match.user2.profile.profile_picture %}
+                                <img src="{{ match.user2.profile.profile_picture.url }}" alt="Profile Picture"
+                                     class="match-photo">
+                            {% else %}
+                                <img src="{% static 'images/icons/profile-icon.svg' %}" alt="Profile Picture"
+                                     class="match-photo">
+                            {% endif %}
+                        {% else %}
+                            {% if match.user1.profile.profile_picture %}
+                                <img src="{{ match.user1.profile.profile_picture.url }}" alt="Profile Picture"
+                                     class="match-photo">
+                            {% else %}
+                                <img src="{% static 'images/icons/profile-icon.svg' %}" alt="Profile Picture"
+                                     class="match-photo">
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+                    <div class="match-details">
+                        {% if match.user1 == request.user %}
+                            <h2>{{ match.user2.profile.get_full_name }}</h2>
+                        {% else %}
+                            <h2>{{ match.user1.profile.get_full_name }}</h2>
+                        {% endif %}
+                    </div>
+
+                    <div class="match-action-buttons">
+                        <a href="{% url 'show-chats' %}?chat_id={{ match|other_user_pk:request.user }}"
+                           class="btn btn-message">Start Chat</a>
+                        <button class="btn btn-report" data-user-id="{{ match|other_user_pk:request.user }}">Report
+                            User
+                        </button>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="no-matches">
+                    <p>No matches yet! Keep swiping to find new connections.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Report User Modal -->
+        <div class="modal-overlay" style="display: none;">
+            <div class="report-modal-content">
+                <h1>Report User</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" id="report-user-id" value="">
+
+                    <div class="form-group">
+                        <label for="{{ form.reason.id_for_label }}">Reason</label>
+                        {{ form.reason }}
+                    </div>
+
+                    <div class="report-modal-options">
+                        <button type="submit" class="btn btn-submit">Submit</button>
+                        <button type="button" class="btn btn-cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

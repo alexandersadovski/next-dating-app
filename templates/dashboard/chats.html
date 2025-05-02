@@ -1,0 +1,95 @@
+{% extends 'dashboard/dashboard-base.html' %}
+{% load timestamp_filter %}
+{% load truncate_filter %}
+{% load static %}
+
+{% block content-dashboard %}
+    <div class="box-70">
+
+        <div class="content">
+            {% if chats or data.is_chat_new %}
+                <div class="all-chats">
+                    {% if data.is_chat_new %}
+                        <a href="" class="chat-link" id="new-chat" data-chat-id="{{ data.receiver.id }}">
+                            <div class="chat">
+                                <div class="chat-photo">
+                                    {% if data.receiver.profile.profile_picture %}
+                                        <img src="{{ data.receiver.profile.profile_picture.url }}" alt="Chat Photo">
+                                    {% else %}
+                                        <span>{{ data.receiver.profile.first_name|slice:1|upper }}</span>
+                                        <span>{{ data.receiver.profile.last_name|slice:1|upper }}</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="chat-info">
+                                    <div class="chat-name">
+                                        {{ data.receiver.profile.get_full_name }}
+                                    </div>
+
+                                    <div class="last-chat-message">
+                                        <p></p>
+                                        <span class="separator"></span>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}
+
+                    {% for chat in chats %}
+                        <a href="" class="chat-link" data-chat-id="{{ chat.user.id }}">
+                            <div class="chat">
+                                <div class="chat-photo">
+                                    {% if chat.user.profile.profile_picture %}
+                                        <img src="{{ chat.user.profile.profile_picture.url }}" alt="Chat Photo">
+                                    {% else %}
+                                        <span>{{ chat.user.profile.first_name|slice:1|upper }}</span>
+                                        <span>{{ chat.user.profile.last_name|slice:1|upper }}</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="chat-info">
+                                    <div class="chat-name">
+                                        {{ chat.user.profile.get_full_name }}
+                                    </div>
+
+                                    <div class="last-chat-message">
+                                        <p>{{ chat.last_message.content|truncate:30 }}</p>
+                                        <span class="separator">•</span>
+                                        <p>{{ chat.last_message.timestamp|timestamp_format }}</p>
+                                    </div>
+                                </div>
+
+                                <button class="chat-delete" data-chat-id="{{ chat.user.id }}">Delete</button>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+
+                <div id="current-chat" class="current-chat">
+                    <div class="no-current-chat">
+                        <p>No selected chat.</p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="no-chats">
+                    <p>No chats available.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-confirmation-modal" style="display: none;">
+        <div class="delete-modal-content">
+            <p>Are you sure you want to delete this chat?</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="confirmation-modal-options">
+                    <button id="confirm-delete-button" type="submit">Delete</button>
+                    <button id="cancel-delete-button" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

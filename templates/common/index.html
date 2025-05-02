@@ -1,0 +1,74 @@
+{% extends 'common/common-base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <div class="hero">
+            <h2 class="neon-text">Ready to find your next match?</h2>
+
+            {% if user.is_authenticated %}
+                <button class="create-account-btn" onclick="window.location.href='{% url 'show-user' %}'">Start
+                    Swiping
+                </button>
+            {% else %}
+                <button class="create-account-btn" onclick="window.location.href='{% url 'register' %}'">Create
+                    Account
+                </button>
+            {% endif %}
+        </div>
+
+        <div class="profile-cards">
+            <div class="card">
+                <img src="{% static 'images/picture1.webp' %}" alt="Profile 1">
+                <div class="profile-info">
+                    <span>Maria, 22</span>
+                    <img src="{% static 'images/icons/check-icon.png' %}" alt="Checkmark" class="checkmark">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{% static 'images/picture2.webp' %}" alt="Profile 2">
+                <div class="profile-info">
+                    <span>Alexander, 26</span>
+                    <img src="{% static 'images/icons/check-icon.png' %}" alt="Checkmark" class="checkmark">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{% static 'images/picture3.webp' %}" alt="Profile 3">
+                <div class="profile-info">
+                    <span>Sandy, 24</span>
+                    <img src="{% static 'images/icons/check-icon.png' %}" alt="Checkmark" class="checkmark">
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{% static 'images/picture4.webp' %}" alt="Profile 4">
+                <div class="profile-info">
+                    <span>Max, 33</span>
+                    <img src="{% static 'images/icons/check-icon.png' %}" alt="Checkmark" class="checkmark">
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials">
+            <div class="testimonial">
+                <p>He hit me with one of the WORST pick-up lines I had ever seen, but being bored at work, I replied.
+                    From there, we never stopped talking, dating, and falling deeper in love.</p>
+                <span>— Rebecca</span>
+            </div>
+
+            <div class="testimonial">
+                <p>For all the single people out there, especially introverts: don't be afraid to step outside your
+                    comfort zone. Next brought us together, and for that, I am forever grateful. ❤️</p>
+                <span>— Lauren</span>
+            </div>
+
+            <div class="testimonial">
+                <p>I was very fussy and didn't expect to meet a man on Next. I decided to sign up anyway, match, and
+                    see what happened. Best decision ever!</p>
+                <span>— Alis</span>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'accounts/profile-base.html' %}
+{% load static %}
+
+{% block content-profile %}
+    <div class="box-70">
+        <div class="header">
+            <p>Profile Details</p>
+        </div>
+
+        <div class="profile-details">
+            <div class="profile-card">
+                {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+                {% else %}
+                    <img src="{% static 'images/icons/profile-icon.svg' %}" alt="Profile Picture">
+                {% endif %}
+
+                <div class="profile-info">
+                    <span>{{ profile.first_name }} {{ profile.last_name }}, {{ profile.age }}</span>
+                    <img src="{% static 'images/icons/check-icon.png' %}" alt="Checkmark" class="checkmark">
+                </div>
+            </div>
+
+            <div class="additional-profile-info">
+                <p><strong>Gender: </strong> {{ profile.gender }}</p>
+
+                {% if profile.location %}
+                    <p><strong>Location: </strong> {{ profile.location }}</p>
+                {% else %}
+                    <p><strong>Location: </strong> No Location</p>
+                {% endif %}
+
+                {% if profile.bio %}
+                    <p><strong>Bio: </strong> {{ profile.bio }}</p>
+                {% else %}
+                    <p><strong>Bio: </strong> No Bio</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

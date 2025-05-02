@@ -1,0 +1,50 @@
+{% load static %}
+{% load placeholder_filter %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next</title>
+    <link rel="stylesheet" href="{% static 'css/register-login.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="header-container">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+            <h1>Sign Up</h1>
+        </div>
+
+        {{ form.email|placeholder:'Email' }}
+        {{ form.email.errors }}
+        {{ form.password1|placeholder:'Password' }}
+        {{ form.password1.errors }}
+        {{ form.password2|placeholder:'Confirm password' }}
+        {{ form.password2.errors }}
+
+        <div class="name-container">
+            {{ form.first_name|placeholder:'First name' }}
+            {{ form.last_name|placeholder:'Last name' }}
+        </div>
+        {{ form.first_name.errors }}
+        {{ form.last_name.errors }}
+
+        <div class="age-gender-container">
+            {{ form.age|placeholder:'Age' }}
+            {{ form.gender|placeholder:'Gender' }}
+        </div>
+        {{ form.age.errors }}
+        {{ form.gender.errors }}
+
+        <button type="submit">Sign up</button>
+
+        <div class="signup">
+            <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        </div>
+    </form>
+</body>
+</html>

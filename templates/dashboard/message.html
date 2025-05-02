@@ -1,0 +1,6 @@
+{% load timestamp_filter %}
+
+<div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+    <p class="message-text">{{ message.content }}</p>
+    <span class="message-timestamp">{{ message.timestamp|timestamp_format }}</span>
+</div>

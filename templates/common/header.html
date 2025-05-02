@@ -1,0 +1,48 @@
+{% load static %}
+
+<header>
+    <div class="navbar">
+        <a href="{% url 'index' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Logo">
+        </a>
+
+        {% if user.is_authenticated %}
+            <div class="auth-container">
+                <div class="menu-icon" id="menu-icon">☰</div>
+
+                <div class="dropdown-menu" id="dropdown-menu">
+                    <a href="{% url 'profile-details' request.user.pk %}" class="dropdown-item">
+                        <img src="{% static 'images/icons/profile-icon.svg' %}" alt="Profile Icon"
+                             class="dropdown-icon">
+                        Profile
+                    </a>
+
+                    <a href="{% url 'show-user' %}" class="dropdown-item">
+                        <img src="{% static 'images/icons/dashboard-icon.svg' %}" alt="Dashboard Icon"
+                             class="dropdown-icon">
+                        Dashboard
+                    </a>
+
+                    <a href="{% url 'coming-soon' %}" class="dropdown-item">
+                        <img src="{% static 'images/icons/settings-icon.svg' %}" alt="Settings Icon"
+                             class="dropdown-icon">
+                        Settings
+                    </a>
+
+                    <div class="dropdown-item">
+                        <img src="{% static 'images/icons/logout-icon.svg' %}" alt="Logout Icon" class="dropdown-icon">
+                        <button type="submit" form="logout-form" class="logout-btn">Logout</button>
+                        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="btn-container">
+                <a href="{% url 'login' %}" class="btn login-btn">Log In</a>
+                <a href="{% url 'register' %}" class="btn signup-btn">Sign Up</a>
+            </div>
+        {% endif %}
+    </div>
+</header>

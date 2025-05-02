@@ -1,0 +1,37 @@
+{% load static %}
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-section help">
+            <h4>Need help?</h4>
+            <button class="contact-support-btn" onclick="window.location.href='{% url 'coming-soon' %}'">Contact
+                Support
+            </button>
+        </div>
+
+        <div class="footer-section socials">
+            <h4>Socials</h4>
+            <ul class="social-icons">
+                <li><a href="{% url 'coming-soon' %}">
+                    <img src="{% static 'images/icons/instagram-icon.svg' %}" alt="Instagram"></a></li>
+                <li><a href="{% url 'coming-soon' %}">
+                    <img src="{% static 'images/icons/youtube-icon.svg' %}" alt="YouTube"></a></li>
+                <li><a href="{% url 'coming-soon' %}">
+                    <img src="{% static 'images/icons/tiktok-icon.svg' %}" alt="TikTok"></a></li>
+                <li><a href="{% url 'coming-soon' %}">
+                    <img src="{% static 'images/icons/facebook-icon.svg' %}" alt="Facebook"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-links">
+            <a href="{% url 'coming-soon' %}">FAQ</a> /
+            <a href="{% url 'coming-soon' %}">Safety tips</a> /
+            <a href="{% url 'coming-soon' %}">Terms</a> /
+            <a href="{% url 'coming-soon' %}">Cookie Policy</a> /
+            <a href="{% url 'coming-soon' %}">Privacy settings</a>
+        </div>
+        <div>&copy; 2024 Next LLC, All Rights Reserved.</div>
+    </div>
+</footer>

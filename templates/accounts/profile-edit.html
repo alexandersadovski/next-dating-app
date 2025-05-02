@@ -1,0 +1,77 @@
+{% extends 'accounts/profile-base.html' %}
+{% load static %}
+
+{% block content-profile %}
+    <div class="box-70">
+        <div class="header">
+            <p>Profile Edit</p>
+        </div>
+
+        <div class="profile-edit">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="field-container">
+                    <div class="field-label"><p>{{ form.profile_picture.label }}</p></div>
+                    <div class="field">
+                        <div class="field-value">{{ form.profile_picture }}</div>
+                        <div class="field-error">{{ form.profile_picture.errors }}</div>
+                    </div>
+                </div>
+
+                <div class="field-container">
+                    <div class="field-label"><p>{{ form.first_name.label }}</p></div>
+                    <div class="field">
+                        <div class="field-value">{{ form.first_name }}</div>
+                        <div class="field-error">{{ form.first_name.errors }}</div>
+                    </div>
+                </div>
+
+                <div class="field-container">
+                    <div class="field-label"><p>{{ form.last_name.label }}</p></div>
+                    <div class="field">
+                        <div class="field-value">{{ form.last_name }}</div>
+                        <div class="field-error">{{ form.last_name.errors }}</div>
+                    </div>
+                </div>
+
+                <div class="field-container">
+                    <div class="field-label"><p>{{ form.age.label }}</p></div>
+                    <div class="field">
+                        <div class="field-value">{{ form.age }}</div>
+                        <div class="field-error">{{ form.age.errors }}</div>
+                    </div>
+                </div>
+
+                <div class="field-container">
+                    <div class="field-label"><p>{{ form.gender.label }}</p></div>
+                    <div class="field">
+                        <div class="field-value">{{ form.gender }}</div>
+                        <div class="field-error">{{ form.gender.errors }}</div>
+                    </div>
+                </div>
+
+                <div class="field-container">
+                    <div class="field-label"><p>{{ form.location.label }}</p></div>
+                    <div class="field">
+                        <div class="field-value">{{ form.location }}</div>
+                        <div class="field-error">{{ form.location.errors }}</div>
+                    </div>
+                </div>
+
+                <div class="field-container">
+                    <div class="field-label"><p>{{ form.bio.label }}</p></div>
+                    <div class="field">
+                        <div class="field-value">{{ form.bio }}</div>
+                        <div class="field-error">{{ form.bio.errors }}</div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button type="submit">Save</button>
+                    <a href="{% url 'profile-edit' request.user.pk %}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

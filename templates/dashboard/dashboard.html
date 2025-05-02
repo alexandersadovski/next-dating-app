@@ -1,0 +1,125 @@
+{% extends 'dashboard/dashboard-base.html' %}
+{% load static %}
+
+{% block content-dashboard %}
+    <div class="box-70">
+        <div class="header">
+            <p>Discover Profiles</p>
+        </div>
+
+        {% if profile %}
+            <div class="profiles">
+                <div class="current-profile">
+                    <div class="profile-card">
+                        {% if profile.profile_picture %}
+                            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+                        {% else %}
+                            <img src="{% static 'images/icons/profile-icon.svg' %}" alt="Profile Picture"
+                                 class="profile-picture">
+                        {% endif %}
+
+                        <div class="profile-info">
+                            <span class="profile-name">{{ profile.first_name }} {{ profile.last_name }},
+                                {{ profile.age }}</span>
+                            <img src="{% static 'images/icons/check-icon.png' %}" alt="Checkmark" class="checkmark">
+                        </div>
+                    </div>
+
+                    <div class="additional-info">
+                        <p><strong>Gender:</strong> {{ profile.gender }}</p>
+                        <p><strong>Location:</strong> {{ profile.location|default:"No Location" }}</p>
+                        <p><strong>Bio:</strong> {{ profile.bio|default:"No Bio" }}</p>
+                    </div>
+
+                    <div class="action-buttons">
+                        <form method="post" id="dislike-form">
+                            {% csrf_token %}
+                            <button type="submit" name="dislike" class="circle-button dislike-button">
+                                <img src="{% static 'images/icons/dislike-icon.svg' %}" alt="Dislike">
+                            </button>
+                        </form>
+
+                        <form method="post" id="like-form">
+                            {% csrf_token %}
+                            <button type="submit" name="like" class="circle-button like-button">
+                                <img src="{% static 'images/icons/like-icon.svg' %}" alt="Like">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="next-profile">
+                    <div class="profile-card">
+                        {% if request.user.profile.gender == 'Male' %}
+                            <img src="{% static 'images/picture3.webp' %}" alt="Profile Picture"
+                                 class="profile-picture">
+
+                            <div class="profile-info">
+                                <span class="profile-name">Sandy Bennett, 24</span>
+                                <img src="{% static 'images/icons/check-icon.png' %}" alt="Checkmark" class="checkmark">
+                            </div>
+                        {% elif request.user.profile.gender == 'Female' %}
+                            <img src="{% static 'images/picture4.webp' %}" alt="Profile Picture"
+                                 class="profile-picture">
+
+                            <div class="profile-info">
+                                <span class="profile-name">Max Bennett, 33</span>
+                                <img src="{% static 'images/icons/check-icon.png' %}" alt="Checkmark" class="checkmark">
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="additional-info">
+                        {% if request.user.profile.gender == 'Male' %}
+                            <p><strong>Gender:</strong> Female</p>
+                            <p><strong>Location:</strong> Monaco</p>
+                            <p><strong>Bio:</strong> Hi, I’m Sandy Bennett. I’m a creative problem-solver with a love
+                                for design and innovation. I enjoy working on projects that challenge me and allow me to
+                                think outside the box. Outside of work, you’ll find me exploring new places,
+                                experimenting with cooking, or getting lost in a good book.</p>
+                        {% elif request.user.profile.gender == 'Female' %}
+                            <p><strong>Gender:</strong> Male</p>
+                            <p><strong>Location:</strong> Monaco</p>
+                            <p><strong>Bio:</strong> Hi, I’m Max Bennett. I’m passionate about solving problems and
+                                blending creativity with technology. When I’m not working, I love hiking, photography,
+                                and exploring new places. Always curious and eager to learn, I’m driven to create and
+                                connect.</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="action-buttons">
+                        <div id="dislike-form">
+                            <button type="button" name="dislike" class="circle-button dislike-button">
+                                <img src="{% static 'images/icons/dislike-icon.svg' %}" alt="Dislike">
+                            </button>
+                        </div>
+
+                        <div id="like-form">
+                            <button type="button" name="like" class="circle-button like-button">
+                                <img src="{% static 'images/icons/like-icon.svg' %}" alt="Like">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="no-profiles">
+                <p>No more profiles to swipe!</p>
+            </div>
+        {% endif %}
+
+        <!-- Match Modal -->
+        <div id="match-modal" class="modal" style="display: none;"
+             data-name="{{ match_data.name }}"
+             data-next-url="{% url 'show-user' %}"
+             role="dialog" aria-modal="true" aria-labelledby="match-modal-title">
+
+            <div class="modal-content">
+                <button id="close-modal" class="close-button" aria-label="Close Modal">&times;</button>
+
+                <h1 id="match-modal-title">It's a Match!</h1>
+                <p>You and <span id="match-name"></span> like each other!</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

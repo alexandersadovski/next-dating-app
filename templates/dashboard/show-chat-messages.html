@@ -1,0 +1,26 @@
+{% load static %}
+
+<div class="chat-header">
+    <p>{{ matched_user.profile.get_full_name }}</p>
+</div>
+
+<div class="messages-container chat-messages">
+    {% for message in messages %}
+        {% include 'dashboard/message.html' %}
+    {% endfor %}
+</div>
+
+<div class="chat-form">
+    <form method="post" id="send-message-form">
+        {% csrf_token %}
+        {{ form.receiver }}
+
+        <div class="input-container">
+            {{ form.content }}
+
+            <button type="submit" class="send-button">
+                <img src="{% static 'images/icons/send-icon.svg' %}" alt="Send Icon">
+            </button>
+        </div>
+    </form>
+</div>

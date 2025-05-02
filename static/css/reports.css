@@ -1,0 +1,79 @@
+.reports-table {
+    background-color: #1C1C1E;
+    border: 2px solid #3A3A3C;
+    border-radius: 8px;
+    padding: 30px 40px;
+}
+
+.reports-table table {
+    width: 100%;
+}
+
+.reports-table thead {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.reports-table th,
+.reports-table td {
+    border: 2px solid #3A3A3C;
+    padding: 15px;
+    text-align: center;
+}
+
+.reports-table .profile {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+}
+
+.reports-table .profile-pic {
+    border-radius: 50%;
+    height: 40px;
+    margin-right: 10px;
+    width: 40px;
+}
+
+.reports-table .user-info {
+    align-items: center;
+    display: flex;
+}
+
+.no-reports {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.no-reports p {
+    border: 2px solid #3A3A3C;
+    border-radius: 25px;
+    color: #666;
+    font-size: 30px;
+    padding: 25px;
+}
+
+.status {
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.status-dismissed {
+    background-color: #f44336;
+    color: #000;
+}
+
+.status-pending {
+    background-color: #ffeb3b;
+    color: #000;
+}
+
+.status-resolved {
+    background-color: #4caf50;
+    color: #000;
+}

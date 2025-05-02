@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next</title>
+    <link rel="stylesheet" href="{% static 'css/profile-delete.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+</head>
+<body>
+<div class="delete-profile-container">
+    <div class="delete-card">
+        <h1>⚠️</h1>
+        <h1>Delete Your Profile</h1>
+        <p>Deleting your profile is a <strong>permanent action</strong>. All your matches, messages, and profile
+            information will be lost forever.</p>
+        <p><strong>Are you sure you want to proceed?</strong></p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-danger">Yes, Delete My Profile</button>
+            <a href="{% url 'profile-details' request.user.pk %}" class="btn-cancel">Cancel</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>
